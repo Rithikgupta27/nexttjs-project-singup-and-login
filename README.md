@@ -37,9 +37,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
-mongoo data
-rithikht342
-=======
+## To connect MongoDB 
+Create a collection with name users 
+
 # nexttjs-project-singup-and-login
 nextjs singup and login
 >>>>>>> 069d493a47ac004214f23d92e2796d32be074dc1
