@@ -1,34 +1,49 @@
 "use client"
-import React, { useState } from 'react'
-import Input from '../component/Input'
-import Link from 'next/link'
+// import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { NextResponse } from 'next/server'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+
+
 const page = () => {
-    // const defaultData= {name:"",username:"",password:""}
-    // const [data,setData] = useState(defaultData);
-    // const onValueChange=(e)=>{
-    //     setData({...data,[e.target.name]:e.target.value});
-    // }
-
-    const onLogout=(e)=>{
+    const router = useRouter();
+    const [load,setLoad] = useState(true);
+    useEffect(()=>{
+        setLoad(false);
+    },[]);
+   
+    
+    const onLogout=async(e)=>{
         e.preventDefault();
+      if(load) return;
 
+       try{
+        const response = await axios.get('api/user/logout');
+           if(response.status===200 ){
+            router.push('/login');
+           }
+       }catch(error){
+         console.log("unable to logout ",error)
+        //  return NextResponse.json({message: 'internal server error'},{status:500}) 
+       }        
       
     }
    return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
         <div  className='bg-white px-16 pt-8 pb-12 mb-4'>
          <h1 className='text-3xl mb-4 text-center font-bold'>Home Page</h1>
-         <form >
+        
              <p className='py-1'>
                 Welcome to our home page
                  </p>
              <button className='bg-red-500 rounded-2xl px-24 py-2 text-white'
-             onClick={(e)=>{onLogout(e)}}
+             onClick={(e)=>onLogout(e)}
              >
                 Logout 
              </button>
              
-         </form>
+        
         </div>      
     </div>
   )

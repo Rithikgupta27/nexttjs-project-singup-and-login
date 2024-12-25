@@ -6,14 +6,12 @@ export function middleware(request) {
   const publicPath = path === '/login' || path === '/register';
   const token = request.cookies.get('token')?.value|| "" ;
   if(publicPath && token){
-    return NextResponse.redirect(new URL('/profile', request.url))
+    return NextResponse.redirect(new URL(path, request.url))
   }
 
   if(!publicPath && !token){
    return NextResponse.redirect(new URL('/login',request.url))
-  }
-
-  
+  }  
 }
  
 // See "Matching Paths" below to learn more
