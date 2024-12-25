@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from '../component/Input'
 import Link from 'next/link'
 import axios from 'axios'
@@ -9,6 +9,10 @@ const page = () => {
   // Initialize state for form data
   const defaultData = { username: "", password: "" };
   const [data, setData] = useState(defaultData);
+  const [load,setLoad] = useState(true);
+  useEffect(()=>{
+    setLoad(false);
+  },[])
   const router = useRouter();
 
   // Handle input field changes
@@ -16,9 +20,11 @@ const page = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  
   // Handle form submission
   const onLogin = async (e) => {
     e.preventDefault();
+    if(load) return ;
 
     // Validation for empty fields
     if (!data.username || !data.password) {
