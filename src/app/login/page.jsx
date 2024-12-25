@@ -2,11 +2,13 @@
 import React, { useState } from 'react'
 import Input from '../component/Input'
 import Link from 'next/link'
-import axios from axios
+import axios from 'axios'
+import {useRouter} from 'next/navigation'
 
 const page = () => {
     const defaultData= {username:"",password:""}
     const [data,setData] = useState(defaultData);
+    const router = useRouter();
     const onValueChange=(e)=>{
         setData({...data,[e.target.name]:e.target.value});
     }
@@ -18,8 +20,12 @@ const page = () => {
             alert("fill all mendotry field");
         }
 
-        const user = await axios.get('api/user/login')
+        const user = await axios.post('api/user/login',data);
 
+        setData(defaultData);
+        if(response.status===200){
+           router.push('/profile');
+        }
         
     }
    return (
