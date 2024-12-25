@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import Input from '../component/Input'
 import Link from 'next/link'
 import axios from 'axios'
-import {useRouter,Router} from 'react'
+// import {useRouter,Router} from 'react'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
     const defaultData= {name:"",username:"",password:""}
     const [data,setData] = useState(defaultData);
+    const router = useRouter();
     const onValueChange=(e)=>{
         setData({...data,[e.target.name]:e.target.value});
     }
@@ -23,7 +25,7 @@ const page = () => {
             const response = await axios.post("api/user/register",data);
             setData(defaultData)
             if(response.status===200){
-              Router.push('/login');
+              router.push('/login');
             }
 
         } catch (error) {
